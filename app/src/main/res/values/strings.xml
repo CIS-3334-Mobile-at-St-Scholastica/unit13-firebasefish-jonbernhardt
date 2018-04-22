@@ -3,5 +3,10 @@
     <string name="fish_caught">Fish caught so far...</string>
     <string name="add_fish">Add a fish</string>
     <string name="fish_details">Fish Details</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="tvEmail">Email Address</string>
+    <string name="tvPassword">Password</string>
+    <string name="btnSignIn">Sign In</string>
+    <string name="btnNew">Create New User</string>
 </resources>
 
