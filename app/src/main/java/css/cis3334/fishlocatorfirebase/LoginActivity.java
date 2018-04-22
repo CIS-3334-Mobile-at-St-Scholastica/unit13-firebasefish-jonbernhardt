@@ -27,11 +27,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        mAuth = FirebaseAuth.getInstance();
         etEmail = (EditText) findViewById(R.id.etEmail);
         etPassword = (EditText) findViewById(R.id.etPassword);
         btnSignIn = (Button) findViewById(R.id.btnSignIn);
         btnCreate = (Button) findViewById(R.id.btnNewUser);
+
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
