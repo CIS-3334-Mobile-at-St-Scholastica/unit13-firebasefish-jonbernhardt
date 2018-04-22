@@ -16,13 +16,13 @@ import java.util.List;
 public class FishFirebaseData {
 
     public static final String FishDataTag = "Fish Data";
-    private DatabaseReference fishDatabase = open();
+    DatabaseReference fishDatabase;
 
     public DatabaseReference open()  {
         // Get an instance of the database and a reference to the fish data in it
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("fish");
-        return myRef;
+        fishDatabase = database.getReference(FishDataTag);
+        return fishDatabase;
     }
 
     public void close() {
@@ -31,7 +31,7 @@ public class FishFirebaseData {
 
     public Fish createFish( String species, String weightInOz, String dateCaught) {           //Added String rating as a parameter
         // ---- Get a new database key for the vote
-        String key = fishDatabase.push().getKey();
+        String key = fishDatabase.child(FishDataTag).push().getKey();
         // ---- set up the fish object
         Fish newFish = new Fish(key, species, weightInOz, dateCaught);
 
@@ -42,7 +42,7 @@ public class FishFirebaseData {
 
     public Fish createFish( String species, String weightInOz, String dateCaught, String locationLatitude, String locationLongitude) {           //Added String rating as a parameter
         // ---- Get a new database key for the vote
-        String key = fishDatabase.push().getKey();
+        String key = fishDatabase.child(FishDataTag).push().getKey();
         // ---- set up the fish object
         Fish newFish = new Fish(key, species, weightInOz, dateCaught, locationLatitude, locationLongitude);
 
@@ -58,12 +58,12 @@ public class FishFirebaseData {
     }
 
     public List<Fish> getAllFish(DataSnapshot dataSnapshot) {
-        List<Fish> fishList = null;
-        String key = "0";
-        while (fishDatabase.child(key) != null){
-            Fish fish = dataSnapshot.getValue(Fish.class);
-
+        List<Fish> fishList = new ArrayList<Fish>();
+        for (DataSnapshot data : dataSnapshot.getChildren()){
+            Fish fish = data.getValue(Fish.class);
+            fishList.add(fish);
         }
+
         return fishList;
     }
 
